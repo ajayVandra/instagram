@@ -9,38 +9,58 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseFirestore
+import Crashlytics
+import FirebaseAnalytics
+
 
 class ViewController: UIViewController ,GIDSignInDelegate{
+    
+    let userdefault = UserDefaults.standard
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
       
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
     }
-//    func signIN(){
-//        Auth.auth().signIn(with: credential) { (authResult, error) in
-//          if let error = error {
-//            // ...
-//            return
-//          }
-//          // User is signed in
-//          // ...
-//        }
-//    }
-    func signOut(){
-            let firebaseAuth = Auth.auth()
-        do {
-          try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-          print ("Error signing out: %@", signOutError)
+    func createUserEmail(email: String,password: String){
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (result, error) in
+            if error == nil{
+                print("user created")
+            }else{
+                print(error)
+            }
         }
-          
+    }
+    func signIn(email:String,password:String){
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil{
+                print("sign in")
+                self.userdefault.set(true, forKey: "key")
+                self.userdefault.synchronize()
+                self.performSegue(withIdentifier: "sec", sender: self)
+            }else if(error?._code == AuthErrorCode.userNotFound.rawValue)
+            {
+                self.createUserEmail(email: email, password: password)
+            }else{
+                print(error)
+            }
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
     }
 
+
+    @IBAction func signInBtnPressed(_ sender: UIButton) {
+        signIn(email: emailTextField.text!, password: passwordTextField.text!)
+    }
 }
 
