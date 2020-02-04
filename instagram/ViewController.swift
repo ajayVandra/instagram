@@ -35,7 +35,7 @@ class ViewController: UIViewController ,GIDSignInDelegate{
             if error == nil{
                 print("user created")
             }else{
-                print(error)
+                print(error!)
             }
         }
     }
@@ -50,7 +50,7 @@ class ViewController: UIViewController ,GIDSignInDelegate{
             {
                 self.createUserEmail(email: email, password: password)
             }else{
-                print(error)
+                print(error!)
             }
         }
     }
