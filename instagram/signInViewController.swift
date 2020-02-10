@@ -14,12 +14,12 @@ import Crashlytics
 import FirebaseAnalytics
 import FirebaseStorage
 import MessageUI
-
+import Localize_Swift
 
 class signInViewController: UIViewController,CAAnimationDelegate,UITableViewDelegate, UITableViewDataSource{
     
     
-    var arrdata = ["username","home","share","signout"]
+    var arrdata = ["Post","home","share","signout"]
 //    var arrImg = [#imageLiteral(resourceName: "appstore"),#imageLiteral(resourceName: "appstore"), #imageLiteral(resourceName: "appstore")]
     @IBOutlet weak var shareTextfield: UITextField!
     var str:String = ""
@@ -148,7 +148,10 @@ class signInViewController: UIViewController,CAAnimationDelegate,UITableViewDele
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let select = arrdata[indexPath.row]
-        if select == "home"{
+        if select == "Post"{
+            performSegue(withIdentifier: "imageCell", sender: self)
+        }
+        else if select == "home"{
              self.dismiss(animated: true, completion: nil)
             sidebar.isHidden = true
             sideview.isHidden = true

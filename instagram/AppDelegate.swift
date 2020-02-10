@@ -12,6 +12,7 @@ import GoogleSignIn
 import FirebaseFirestore
 import Crashlytics
 import FirebaseAnalytics
+import Localize_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {

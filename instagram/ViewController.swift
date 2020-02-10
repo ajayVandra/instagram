@@ -12,7 +12,7 @@ import GoogleSignIn
 import FirebaseFirestore
 import Crashlytics
 import FirebaseAnalytics
-
+import Localize_Swift
 
 class ViewController: UIViewController ,GIDSignInDelegate{
     

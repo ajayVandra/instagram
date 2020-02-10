@@ -15,6 +15,8 @@ import FirebaseAnalytics
 import AVFoundation
 import AVKit
 import FirebaseStorage
+import Localize_Swift
+
 class TableViewController: UITableViewController {
     var array = [StorageReference]()
     override func viewDidLoad() {
@@ -39,11 +41,13 @@ class TableViewController: UITableViewController {
             // Uh-oh, an error occurred!
           } else {
             // Data for "images/island.jpg" is returned
+            
             cell.imageView?.image = UIImage(data: data!)
           }
         }
         return cell
     }
+   
     func loadData(){
         let storageRef = Storage.storage().reference(withPath: "name/")
         storageRef.listAll { (result, error) in
@@ -68,3 +72,4 @@ class TableViewController: UITableViewController {
             }
         }
 }
+

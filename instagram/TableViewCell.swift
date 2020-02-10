@@ -13,6 +13,7 @@ import FirebaseFirestore
 import Crashlytics
 import FirebaseAnalytics
 import FirebaseStorage
+import Localize_Swift
 
 class TableViewCell: UITableViewCell {
 
